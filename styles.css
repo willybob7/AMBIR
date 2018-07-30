@@ -17,6 +17,7 @@ body {
   margin: 0 auto;
 }
 
+
 header {
   background:rgba(26, 26, 26, 0.8);
   height: 70px;
@@ -26,27 +27,25 @@ header {
 
 }
 
-/* header::after {
-  content: '';
-  display: table;
-  clear: both;
-} */
+h1 {
+  margin: 5px auto;
+  width: 210px;
+  text-align: center;
+}
 
 .logo {
-  /* float: left; */
-  padding: 3px;
   font-size: 40px;
-  margin: 0px 25%;
-  /* border: 3px solid white; */
-  border-radius: 4px;
-font-family: 'Cormorant SC', serif;
+  font-family: 'Cormorant SC', serif;
   color: white;
-
+  text-decoration: none;
+  width: 200px;
 }
+
 .container p {
   color: white;
   font-family: 'Cormorant SC', serif;
 }
+
 hr {
   width: 50%;
 }
@@ -85,7 +84,7 @@ nav a:hover {
   color: rgb(191, 191, 191);
 }
 
-nav a::before {
+nav a::before, .logo::before {
   content: '';
   display: block;
   height: 5px;
@@ -96,11 +95,17 @@ nav a::before {
   transition: all ease-in-out 250ms;
 }
 
+h1 a:hover::before {
+  /* padding-top: 5px; */
+  margin-top: 5px;
+  width: 210px;
+}
+
 nav a:hover::before {
   width: 100%;
 }
 * {box-sizing: border-box}
-/* body {font-family: Verdana, sans-serif; margin:0} */
+
 .mySlides {
   display: none;
 height: inherit;
