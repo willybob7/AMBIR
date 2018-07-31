@@ -47,7 +47,7 @@ h1 {
 }
 
 hr {
-  width: 50%;
+  width: 15em;
 }
 
 
@@ -94,10 +94,13 @@ nav a::before, .logo::before {
   width: 0%;
   transition: all ease-in-out 250ms;
 }
+h1 a::before{
+margin-top: 5px;
+
+}
 
 h1 a:hover::before {
   /* padding-top: 5px; */
-  margin-top: 5px;
   width: 210px;
 }
 

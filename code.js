@@ -27,9 +27,11 @@ function showSlides(n) {
 function picHeight() {
     var w = window.outerWidth;
     var h = window.outerHeight;
-    var image = slides.getElementsByClassName('pic');
+    var images = document.getElementsByClassName('pic');
     var activePic = slides[slideIndex-1];
-    var width = activePic.offsetWidth;
+    var width = activePic.offsetHeight;
     console.log(width);
-    // if (h )
 }
+$(".dropdown").mouseover(function(){
+
+})
