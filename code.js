@@ -32,6 +32,3 @@ function picHeight() {
     var width = activePic.offsetHeight;
     console.log(width);
 }
-$(".dropdown").mouseover(function(){
-
-})
