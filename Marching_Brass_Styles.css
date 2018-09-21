@@ -116,7 +116,7 @@ h1 a:hover::before {
 .dropdown:hover .dropdown-content{
   visibility: visible;
   opacity: 1;
-  transform: translateY(1px);
+  transform: translateY(5px);
 }
 
 
@@ -125,6 +125,9 @@ h1 a:hover::before {
 #policy {
   color: var(--textColor);
   font-family: 'Cormorant SC', serif;
+  text-align: left;
+}
+#policy li{
   text-align: left;
 }
 
