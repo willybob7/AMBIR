@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Work+Sans:400,600|Cormorant+SC:600");
 body {
   margin: 0;
-  background-image: url("background.jpg");
+  background-image: url("pictures/background.jpg");
   /* position: fixed; */
   /* background-size: contain; */
   font-family: 'Work Sans', sans-serif;

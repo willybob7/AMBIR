@@ -8,7 +8,7 @@ const test1 = {
     model: "1120",
     ser: "904730",
     description: ["This is a King model 1120 Marching mellophone in ready to play condition. ",
-    "The serial number is 904730. It has been ultrasonically cleaned and serviced ",
+    "It has been ultrasonically cleaned and serviced ",
     "for this auction by a professional repair technician. All slides and valves ",
     "work freely and easily. There are dings, scratches and wear from normal usage. ",
     "There is a case and a Holton 7C mouthpiece."],
@@ -23,11 +23,15 @@ function createSpots(obj){
     area.setAttribute("class", "area");
     for (let i = 0; i < obj[item].pics.length; i++){
       let pic = document.createElement("img");
-      pic.setAttribute("src", obj[item].pics[i]);
+      pic.setAttribute("src", "pictures/" + obj[item].pics[i]);
       pic.setAttribute("alt", "stuff");
       // pic.setAttribute("width", "304");
-      pic.setAttribute("height", "80");
+      pic.setAttribute("height", "30");
       area.appendChild(pic);
+      if (i==0){
+        let space = document.createElement("br");
+        area.appendChild(space);
+      }
     }
     let Brand = document.createElement("p");
     let BrandName = document.createTextNode("Brand: " + obj[item].brand);
@@ -50,7 +54,7 @@ function createSpots(obj){
    let words = document.createTextNode(wordsVar);
    description.appendChild(words);
    area.appendChild(description);
-   
+
 
     picArea.appendChild(area);
   }

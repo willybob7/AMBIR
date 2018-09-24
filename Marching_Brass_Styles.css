@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Work+Sans:400,600|Cormorant+SC:600");
 body {
   margin: 0;
-  background-image: url("background.jpg");
+  background-image: url("pictures/background.jpg");
   font-family: 'Work Sans', sans-serif;
   font-weight: 800;
   background-size: 100%;
@@ -11,7 +11,6 @@ body {
 
 .container {
   width: 100%;
-  /* margin: 0 auto; */
   background: var(--background);
   position: absolute;
   top: 0;
@@ -146,6 +145,27 @@ h1 a:hover::before {
   visibility: visible;
   opacity: 1;
   transform: translateY(5px);
+
+}
+.area {
+  background: var(--background);
+  width: 300px;
+  position: relative;
+  margin-top: 20px;
+  border: black 2px solid;
+  border-radius: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+img:first-child {
+  height: 100px;
+  position: relative;
+  display: block;
+  margin: 1px auto;
+}
+.area p {
+  color: white;
+  font-family: 'Cormorant SC', serif;
 
 }
 @media screen and (max-width:940px ){
