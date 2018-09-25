@@ -157,8 +157,8 @@ h1 a:hover::before {
   margin-left: 5px;
   margin-right: 5px;
 }
-img:first-child {
-  height: 100px;
+#focusPic img {
+  height: 200px;
   position: relative;
   display: block;
   margin: 1px auto;
@@ -167,6 +167,12 @@ img:first-child {
   color: white;
   font-family: 'Cormorant SC', serif;
 
+}
+.area img {
+  margin: 2px;
+  border: white 2px solid;
+  border-radius: 5px;
+  cursor: pointer;
 }
 @media screen and (max-width:940px ){
   .policy-dropdown-content {

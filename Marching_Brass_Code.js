@@ -15,23 +15,27 @@ const test1 = {
     shipping: "$35",
   }
 }
-
 function createSpots(obj){
   let picArea = document.getElementById("pics");
   for (let item in obj){
     let area = document.createElement("div");
     area.setAttribute("class", "area");
+    let focusPic = document.createElement("div");
+    focusPic.setAttribute("id", "focusPic");
+    area.appendChild(focusPic);
     for (let i = 0; i < obj[item].pics.length; i++){
+      if (i==0){
+        let pic = document.createElement("img");
+        pic.setAttribute("src", "pictures/" + obj[item].pics[i]);
+        pic.setAttribute("alt", "stuff");
+        focusPic.appendChild(pic);
+      }
       let pic = document.createElement("img");
       pic.setAttribute("src", "pictures/" + obj[item].pics[i]);
       pic.setAttribute("alt", "stuff");
-      // pic.setAttribute("width", "304");
-      pic.setAttribute("height", "30");
+      pic.setAttribute("height", "40");
+      pic.setAttribute("class", "pic");
       area.appendChild(pic);
-      if (i==0){
-        let space = document.createElement("br");
-        area.appendChild(space);
-      }
     }
     let Brand = document.createElement("p");
     let BrandName = document.createTextNode("Brand: " + obj[item].brand);
@@ -54,21 +58,18 @@ function createSpots(obj){
    let words = document.createTextNode(wordsVar);
    description.appendChild(words);
    area.appendChild(description);
-
-
-    picArea.appendChild(area);
+  picArea.appendChild(area);
   }
 }
-// function addPics(pics){
-//   let picArea = document.getElementById('pics');
-//   for (var i = 0; i < pics.length; i++){
-//     let pic = document.createElement("img");
-//     pic.setAttribute("src", pics[i]);
-//     pic.setAttribute("alt", "stuff");
-//     // pic.setAttribute("width", "304");
-//     pic.setAttribute("height", "80");
-//     picArea.appendChild(pic);
-//   }
-// }
 createSpots(test1);
-// addPics(test1.pics);
+function changePic(event){
+  let picture = document.getElementById('focusPic');
+  picture.removeChild(picture.childNodes[0]);
+  let newPic = document.createElement("img");
+  newPic.setAttribute("src", event.target.src);
+  picture.appendChild(newPic);
+}
+let picClass = document.getElementsByClassName("pic");
+for (let i = 0; i < picClass.length; i++) {
+    picClass[i].addEventListener('click', changePic, false);
+}
