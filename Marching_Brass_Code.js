@@ -1,3 +1,7 @@
+// Open the Modal
+
+
+
 const test1 = {
   item1: {
     pics: ["store1.jpg", "store2.jpg","store3.jpg",
@@ -21,13 +25,14 @@ function createSpots(obj){
     let area = document.createElement("div");
     area.setAttribute("class", "area");
     let focusPic = document.createElement("div");
-    focusPic.setAttribute("id", "focusPic");
+    focusPic.setAttribute("class", "focusPicArea")
     area.appendChild(focusPic);
     for (let i = 0; i < obj[item].pics.length; i++){
       if (i==0){
         let pic = document.createElement("img");
         pic.setAttribute("src", "pictures/" + obj[item].pics[i]);
         pic.setAttribute("alt", "stuff");
+        pic.setAttribute("class", "focusPic");
         focusPic.appendChild(pic);
       }
       let pic = document.createElement("img");
@@ -63,13 +68,66 @@ function createSpots(obj){
 }
 createSpots(test1);
 function changePic(event){
-  let picture = document.getElementById('focusPic');
+  let picture = event.target.parentNode.childNodes[0];
   picture.removeChild(picture.childNodes[0]);
   let newPic = document.createElement("img");
   newPic.setAttribute("src", event.target.src);
+  newPic.setAttribute("class", "focusPic");
+  newPic.addEventListener('click', openModal, false);
+  newPic.addEventListener("click", currentSlide(1));
   picture.appendChild(newPic);
 }
 let picClass = document.getElementsByClassName("pic");
 for (let i = 0; i < picClass.length; i++) {
     picClass[i].addEventListener('click', changePic, false);
+}
+
+
+
+
+function openModal() {
+  document.getElementById('myModal').style.display = "block";
+}
+
+// Close the Modal
+function closeModal() {
+  document.getElementById('myModal').style.display = "none";
+}
+
+var slideIndex = 1;
+showSlides(slideIndex);
+
+// Next/previous controls
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+// Thumbnail image controls
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("demo");
+  var captionText = document.getElementById("caption");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+  captionText.innerHTML = dots[slideIndex-1].alt;
+}
+
+let focusPicClass = document.getElementsByClassName("focusPic");
+console.log(focusPicClass);
+for (let i = 0; i < focusPicClass.length; i++) {
+  focusPicClass[i].addEventListener('click', openModal, false);
+  focusPicClass[i].addEventListener("click", currentSlide(1));
 }
