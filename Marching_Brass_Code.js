@@ -27,6 +27,7 @@ function createSpots(obj){
     let focusPic = document.createElement("div");
     focusPic.setAttribute("class", "focusPicArea")
     area.appendChild(focusPic);
+    let lightboxContent;
     for (let i = 0; i < obj[item].pics.length; i++){
       if (i==0){
         let pic = document.createElement("img");
@@ -34,6 +35,18 @@ function createSpots(obj){
         pic.setAttribute("alt", "stuff");
         pic.setAttribute("class", "focusPic");
         focusPic.appendChild(pic);
+        let lightbox = document.createElement("div");
+        lightbox.setAttribute("id", "myModal");
+        lightbox.setAttribute("class", "modal");
+        let close = document.createElement("span");
+        close.setAttribute("class", "close cursor");
+        close.addEventListener("click", closeModal());
+        let x = document.createTextNode("&times;");
+        close.appendChild(x);
+        lightbox.appendChild(close);
+        lightboxContent = document.createElement("div");
+        lightboxContent.setAttribute("class", "modal-content");
+        lightbox.appendChild(lightboxContent);
       }
       let pic = document.createElement("img");
       pic.setAttribute("src", "pictures/" + obj[item].pics[i]);
@@ -42,6 +55,15 @@ function createSpots(obj){
       pic.setAttribute("class", "pic");
       area.appendChild(pic);
     }
+    for (let i = 0; i < obj[item].pics.length; i++){
+      let mySlide = document.createElement("div");
+      mySlide.setAttribute("class", "mySlides");
+      let slidePic = document.createElement("img");
+      slidePic.setAttribute("src", "pictures/" + obj[item].pics[i]);
+      mySlide.appendChild(slidePic);
+      lightboxContent.appendChild(mySlide);
+}
+//add the left and right controls
     let Brand = document.createElement("p");
     let BrandName = document.createTextNode("Brand: " + obj[item].brand);
     Brand.appendChild(BrandName);
@@ -122,12 +144,11 @@ function showSlides(n) {
   }
   slides[slideIndex-1].style.display = "block";
   dots[slideIndex-1].className += " active";
-  captionText.innerHTML = dots[slideIndex-1].alt;
 }
 
 let focusPicClass = document.getElementsByClassName("focusPic");
 console.log(focusPicClass);
 for (let i = 0; i < focusPicClass.length; i++) {
-  focusPicClass[i].addEventListener('click', openModal, false);
+  focusPicClass[i].addEventListener('click', openModal(), false);
   focusPicClass[i].addEventListener("click", currentSlide(1));
 }
