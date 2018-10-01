@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
       let focusPic = document.createElement("div");
       focusPic.setAttribute("class", "focusPicArea")
       area.appendChild(focusPic);
-      let lightboxContent;
+
       for (let i = 0; i < obj[item].pics.length; i++){
         if (i==0){
           let pic = document.createElement("img");
@@ -50,11 +50,11 @@ document.addEventListener("DOMContentLoaded", function() {
           lightbox.setAttribute("class", "modal");
           let close = document.createElement("span");
           close.setAttribute("class", "close cursor");
-          close.addEventListener("click", closeModal());
+          close.addEventListener("click", closeModal);
           let x = document.createTextNode("&times;");
           close.appendChild(x);
           lightbox.appendChild(close);
-          lightboxContent = document.createElement("div");
+          let lightboxContent = document.createElement("div");
           lightboxContent.setAttribute("class", "modal-content");
           lightbox.appendChild(lightboxContent);
         }
@@ -74,13 +74,17 @@ document.addEventListener("DOMContentLoaded", function() {
         lightboxContent.appendChild(mySlide);
       }
       let prev = document.createElement("a");
-      prev.addEventListener("click", plusSlides(-1));
+      prev.addEventListener("click", function() {
+        showSlides(slideIndex += n);
+      });
       prev.setAttribute("class", "prev");
       let left = document.createTextNode("&#10094;");
       prev.appendChild(left);
       lightboxContent.appendChild(prev);
       let next = document.createElement("a");
-      next.addEventListener("click", plusSlides(1));
+      next.addEventListener("click", function () {
+        showSlides(slideIndex += n);
+      });
       next.setAttribute("class", "next");
       let right = document.createTextNode("&#10095;");
       next.appendChild(right);
@@ -91,7 +95,9 @@ document.addEventListener("DOMContentLoaded", function() {
         let thumbNail = document.createElement("img");
         thumbNail.setAttribute("class", "demo");
         thumbNail.setAttribute("src", "pictures/" + obj[item].pics[i]);
-        thumbnail.addEventListener("click", currentSlide(i+1));
+        thumbNail.addEventListener("click", function(n){
+            showSlides(slideIndex = n);
+          });
         thumbNail.setAttribute("alt", "stuff");
         thumbPlace.appendChild(thumbNail);
         lightboxContent.appendChild(thumbPlace);
@@ -129,7 +135,9 @@ document.addEventListener("DOMContentLoaded", function() {
     newPic.setAttribute("src", event.target.src);
     newPic.setAttribute("class", "focusPic");
     newPic.addEventListener('click', openModal, false);
-    newPic.addEventListener("click", currentSlide(1));
+    newPic.addEventListener("click", function(){
+        showSlides(slideIndex = n);
+      });
     picture.appendChild(newPic);
   }
   let picClass = document.getElementsByClassName("pic");
@@ -156,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   var slideIndex = 1;
-  showSlides(slideIndex);
+  // showSlides(slideIndex);
 
   // Next/previous controls
   function plusSlides(n) {
@@ -188,7 +196,9 @@ document.addEventListener("DOMContentLoaded", function() {
   let focusPicClass = document.getElementsByClassName("focusPic");
   console.log(focusPicClass);
   for (let i = 0; i < focusPicClass.length; i++) {
-    focusPicClass[i].addEventListener('click', openModal, false);
-    focusPicClass[i].addEventListener("click", currentSlide(1), false);
-  }
-});
+    focusPicClass[i].addEventListener('click', openModal);
+    focusPicClass[i].addEventListener("click", function(n){
+        showSlides(slideIndex = n);
+      });
+    };
+  });
