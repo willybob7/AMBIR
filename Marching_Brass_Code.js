@@ -1,15 +1,4 @@
 
-// Why not just get the arguments from the target attribute of the event?
-//
-// Example:
-//
-// var someInput = document.querySelector('input');
-// someInput.addEventListener('click', myFunc, false);
-// someInput.myParam = 'This is my parameter';
-// function myFunc(evt)
-// {
-//   window.alert( evt.target.myParam );
-// }
 document.addEventListener("DOMContentLoaded", function() {
 
   const test1 = {
@@ -51,8 +40,7 @@ document.addEventListener("DOMContentLoaded", function() {
           let close = document.createElement("span");
           close.setAttribute("class", "close cursor");
           close.addEventListener("click", closeModal);
-          let x = document.createTextNode("&times;");
-          close.appendChild(x);
+          close.innerHTML = "&times;";
           lightbox.appendChild(close);
           lightboxContent = document.createElement("div");
           lightboxContent.setAttribute("class", "modal-content");
@@ -64,6 +52,8 @@ document.addEventListener("DOMContentLoaded", function() {
         pic.setAttribute("alt", "stuff");
         pic.setAttribute("height", "40");
         pic.setAttribute("class", "pic");
+        pic.picNum = i;
+        // console.log(pic.picNum);
         area.appendChild(pic);
       }
       for (let i = 0; i < obj[item].pics.length; i++){
@@ -75,20 +65,14 @@ document.addEventListener("DOMContentLoaded", function() {
         lightboxContent.appendChild(mySlide);
       }
       let prev = document.createElement("a");
-      prev.addEventListener("click", function() {
-        showSlides(slideIndex += n);
-      });
+      prev.setAttribute("onclick", "plusSlides(-1)");
       prev.setAttribute("class", "prev");
-      let left = document.createTextNode("&#10094;");
-      prev.appendChild(left);
+      prev.innerHTML= "&#10094;";
       lightboxContent.appendChild(prev);
       let next = document.createElement("a");
-      next.addEventListener("click", function () {
-        showSlides(slideIndex += n);
-      });
+      next.setAttribute("onclick", "plusSlides(-1)");
       next.setAttribute("class", "next");
-      let right = document.createTextNode("&#10095;");
-      next.appendChild(right);
+      next.innerHTML = "&#10095;";
       lightboxContent.appendChild(next);
       for (let i = 0; i < obj[item].pics.length; i++){
         let thumbPlace = document.createElement("div");
@@ -130,15 +114,16 @@ document.addEventListener("DOMContentLoaded", function() {
   }
   createSpots(test1);
   function changePic(event){
+    console.log(event.target.picNum);
     let picture = event.target.parentNode.childNodes[0];
     picture.removeChild(picture.childNodes[0]);
     let newPic = document.createElement("img");
     newPic.setAttribute("src", event.target.src);
     newPic.setAttribute("class", "focusPic");
+    newPic.picNum = event.target.picNum;
+    // console.log(newPic.picNum);
     newPic.addEventListener('click', openModal, false);
-    newPic.addEventListener("click", function(){
-        showSlides(slideIndex = n);
-      });
+    newPic.addEventListener("click", currentSlide);
     picture.appendChild(newPic);
   }
   let picClass = document.getElementsByClassName("pic");
@@ -165,7 +150,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   var slideIndex = 1;
-  // showSlides(slideIndex);
+  showSlides(slideIndex);
 
   // Next/previous controls
   function plusSlides(n) {
@@ -173,8 +158,9 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   // Thumbnail image controls
-  function currentSlide(n) {
-    showSlides(slideIndex = n);
+  function currentSlide(event) {
+    console.log(event.target.picNum);
+    showSlides(event.target.picNum);
   }
 
   function showSlides(n) {
@@ -183,13 +169,14 @@ document.addEventListener("DOMContentLoaded", function() {
     var dots = document.getElementsByClassName("demo");
     var captionText = document.getElementById("caption");
     if (n > slides.length) {slideIndex = 1}
-    if (n < 1) {slideIndex = slides.length}
+    if (n < 0) {slideIndex = slides.length}
     for (i = 0; i < slides.length; i++) {
       slides[i].style.display = "none";
     }
     for (i = 0; i < dots.length; i++) {
       dots[i].className = dots[i].className.replace(" active", "");
     }
+    // console.log(slides)
     slides[slideIndex-1].style.display = "block";
     dots[slideIndex-1].className += " active";
   }
@@ -198,8 +185,19 @@ document.addEventListener("DOMContentLoaded", function() {
   console.log(focusPicClass);
   for (let i = 0; i < focusPicClass.length; i++) {
     focusPicClass[i].addEventListener('click', openModal);
-    focusPicClass[i].addEventListener("click", function(n){
-        showSlides(slideIndex = n);
-      });
+    focusPicClass[i].addEventListener("click", currentSlide);
+    // focusPicClass[i].picNum = i;
+   // console.log(focusPicClass[i].picNum);
     };
   });
+  // Why not just get the arguments from the target attribute of the event?
+  //
+  // Example:
+  //
+  // var someInput = document.querySelector('input');
+  // someInput.addEventListener('click', myFunc, false);
+  // someInput.myParam = 'This is my parameter';
+  // function myFunc(evt)
+  // {
+  //   window.alert( evt.target.myParam );
+  // }
