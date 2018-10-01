@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
       let focusPic = document.createElement("div");
       focusPic.setAttribute("class", "focusPicArea")
       area.appendChild(focusPic);
-
+      let lightboxContent;
       for (let i = 0; i < obj[item].pics.length; i++){
         if (i==0){
           let pic = document.createElement("img");
@@ -54,9 +54,10 @@ document.addEventListener("DOMContentLoaded", function() {
           let x = document.createTextNode("&times;");
           close.appendChild(x);
           lightbox.appendChild(close);
-          let lightboxContent = document.createElement("div");
+          lightboxContent = document.createElement("div");
           lightboxContent.setAttribute("class", "modal-content");
           lightbox.appendChild(lightboxContent);
+          area.appendChild(lightbox);
         }
         let pic = document.createElement("img");
         pic.setAttribute("src", "pictures/" + obj[item].pics[i]);
