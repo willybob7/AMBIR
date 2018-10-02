@@ -1,6 +1,7 @@
 
 document.addEventListener("DOMContentLoaded", function() {
 
+  var slideIndex = 1;
   const test1 = {
     item1: {
       pics: ["store1.jpg", "store2.jpg","store3.jpg",
@@ -33,6 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
           pic.setAttribute("src", "pictures/" + obj[item].pics[i]);
           pic.setAttribute("alt", "stuff");
           pic.setAttribute("class", "focusPic");
+          pic.picNum = 0;
           focusPic.appendChild(pic);
           let lightbox = document.createElement("div");
           lightbox.setAttribute("id", "myModal");
@@ -65,14 +67,16 @@ document.addEventListener("DOMContentLoaded", function() {
         lightboxContent.appendChild(mySlide);
       }
       let prev = document.createElement("a");
-      prev.setAttribute("onclick", "plusSlides(-1)");
+      prev.addEventListener("click", plusSlides);
       prev.setAttribute("class", "prev");
+      prev.value = -1;
       prev.innerHTML= "&#10094;";
       lightboxContent.appendChild(prev);
       let next = document.createElement("a");
-      next.setAttribute("onclick", "plusSlides(-1)");
+      next.addEventListener("click", plusSlides);
       next.setAttribute("class", "next");
       next.innerHTML = "&#10095;";
+      next.value = 1;
       lightboxContent.appendChild(next);
       for (let i = 0; i < obj[item].pics.length; i++){
         let thumbPlace = document.createElement("div");
@@ -80,9 +84,8 @@ document.addEventListener("DOMContentLoaded", function() {
         let thumbNail = document.createElement("img");
         thumbNail.setAttribute("class", "demo");
         thumbNail.setAttribute("src", "pictures/" + obj[item].pics[i]);
-        thumbNail.addEventListener("click", function(n){
-            showSlides(slideIndex = n);
-          });
+        thumbNail.picNum = i;
+        thumbNail.addEventListener("click", setSlideIndex);
         thumbNail.setAttribute("alt", "stuff");
         thumbPlace.appendChild(thumbNail);
         lightboxContent.appendChild(thumbPlace);
@@ -114,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
   createSpots(test1);
   function changePic(event){
-    console.log(event.target.picNum);
+    // console.log(event.target.picNum);
     let picture = event.target.parentNode.childNodes[0];
     picture.removeChild(picture.childNodes[0]);
     let newPic = document.createElement("img");
@@ -131,35 +134,33 @@ document.addEventListener("DOMContentLoaded", function() {
     picClass[i].addEventListener('click', changePic, false);
   }
 
-
+function setSlideIndex(event){
+  slideIndex = event.target.picNum;
+  showSlides(slideIndex);
+}
 
 
   function openModal() {
-    if (document.getElementById("myModal")!==null){
       document.getElementById('myModal').style.display = "block";
-
-    }
   }
 
   // Close the Modal
   function closeModal() {
-    if (document.getElementById("myModal")!==null){
-
       document.getElementById('myModal').style.display = "none";
-    }
   }
 
-  var slideIndex = 1;
   showSlides(slideIndex);
 
   // Next/previous controls
-  function plusSlides(n) {
+  function plusSlides(event) {
+    let n = event.target.value;
     showSlides(slideIndex += n);
   }
 
   // Thumbnail image controls
   function currentSlide(event) {
-    console.log(event.target.picNum);
+    slideIndex = event.target.picNum;
+    // console.log(event.target.picNum);
     showSlides(event.target.picNum);
   }
 
@@ -167,9 +168,8 @@ document.addEventListener("DOMContentLoaded", function() {
     var i;
     var slides = document.getElementsByClassName("mySlides");
     var dots = document.getElementsByClassName("demo");
-    var captionText = document.getElementById("caption");
-    if (n > slides.length) {slideIndex = 1}
-    if (n < 0) {slideIndex = slides.length}
+    if (n > slides.length - 1) {slideIndex = 0}
+    if (n < 0) {slideIndex = slides.length - 1}
     for (i = 0; i < slides.length; i++) {
       slides[i].style.display = "none";
     }
@@ -177,8 +177,9 @@ document.addEventListener("DOMContentLoaded", function() {
       dots[i].className = dots[i].className.replace(" active", "");
     }
     // console.log(slides)
-    slides[slideIndex-1].style.display = "block";
-    dots[slideIndex-1].className += " active";
+    slides[slideIndex].style.display = "block";
+    slides[slideIndex].childNodes[0].className = "display"
+    dots[slideIndex].className += " active";
   }
 
   let focusPicClass = document.getElementsByClassName("focusPic");
