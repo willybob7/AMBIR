@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
   var slideIndex = 1;
   const test1 = {
     item1: {
+      type: "brass",
       pics: ["store1.jpg", "store2.jpg","store3.jpg",
       "store4.jpg","store5.jpg","store6.jpg","store7.jpg",
       "store8.jpg","store9.jpg","store10.jpg","store11.jpg",
@@ -17,7 +18,23 @@ document.addEventListener("DOMContentLoaded", function() {
       "work freely and easily. There are dings, scratches and wear from normal usage. ",
       "There is a case and a Holton 7C mouthpiece."],
       shipping: "$35",
-    }
+    },
+    item2: {
+      type: "woodwind",
+      pics: ["s-l1600.jpg", "s-l1600 (1).jpg", "s-l1600 (2).jpg",
+      "s-l1600 (3).jpg", "s-l1600 (4).jpg", "s-l1600 (5).jpg",
+      "s-l1600 (6).jpg", "s-l1600 (7).jpg", "s-l1600 (8).jpg", "s-l1600 (9).jpg",
+    "s-l1600 (10).jpg", "s-l1600 (11).jpg"],
+    brand: "Selmer",
+    model: "1430P",
+    ser: "61011",
+    description: ["This is a used Selmer bass clarinet in good playing condition. ",
+  "There are dings and wear from normal usage throughout. ",
+"This instrument has been serviced by a professional repair technician. ",
+"The pads appear to be original. The tenon cork is in good condition. ",
+"It has been play tested and is ready to go on arrival. There is a case and no mouthpiece."],
+shipping: "$40",
+},
   }
   function createSpots(obj){
     let picArea = document.getElementById("pics");
@@ -37,8 +54,8 @@ document.addEventListener("DOMContentLoaded", function() {
           pic.picNum = 0;
           focusPic.appendChild(pic);
           let lightbox = document.createElement("div");
-          lightbox.setAttribute("id", "myModal");
           lightbox.setAttribute("class", "modal");
+          // lightbox.setAttribute("id", "myModal");
           let close = document.createElement("span");
           close.setAttribute("class", "close cursor");
           close.addEventListener("click", closeModal);
@@ -136,36 +153,40 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function setSlideIndex(event){
   slideIndex = event.target.picNum;
-  showSlides(slideIndex);
+  showSlides(slideIndex, event);
 }
 
-
-  function openModal() {
-      document.getElementById('myModal').style.display = "block";
+var currentDisplay;
+  function openModal(event) {
+    // console.log(event.target.parentNode.parentNode.childNodes[1])
+event.target.parentNode.parentNode.childNodes[1].style.display = "block";
+currentDisplay = event.target.parentNode.parentNode.childNodes[1];
   }
 
   // Close the Modal
   function closeModal() {
-      document.getElementById('myModal').style.display = "none";
+      currentDisplay.style.display = "none";
   }
 
-  showSlides(slideIndex);
+  // showSlides(slideIndex, );
 
   // Next/previous controls
   function plusSlides(event) {
     let n = event.target.value;
-    showSlides(slideIndex += n);
+    showSlides(slideIndex += n, event);
   }
 
   // Thumbnail image controls
   function currentSlide(event) {
     slideIndex = event.target.picNum;
     // console.log(event.target.picNum);
-    showSlides(event.target.picNum);
+    showSlides(event.target.picNum, event);
   }
 
-  function showSlides(n) {
+  function showSlides(n, event) {
     var i;
+    console.log(event.target.parentNode.parentNode)
+    //get slides to be the pictures in the area that was clicked.
     var slides = document.getElementsByClassName("mySlides");
     var dots = document.getElementsByClassName("demo");
     if (n > slides.length - 1) {slideIndex = 0}
@@ -187,8 +208,6 @@ function setSlideIndex(event){
   for (let i = 0; i < focusPicClass.length; i++) {
     focusPicClass[i].addEventListener('click', openModal);
     focusPicClass[i].addEventListener("click", currentSlide);
-    // focusPicClass[i].picNum = i;
-   // console.log(focusPicClass[i].picNum);
     };
   });
   // Why not just get the arguments from the target attribute of the event?
