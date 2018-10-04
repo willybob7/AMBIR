@@ -1,46 +1,52 @@
+//change demo class so that they are all in column class and evenly spaced and centered when zoomed in
 
-document.addEventListener("DOMContentLoaded", function() {
-
-  var slideIndex = 1;
-  const test1 = {
-    item1: {
-      type: "brass",
-      pics: ["store1.jpg", "store2.jpg","store3.jpg",
-      "store4.jpg","store5.jpg","store6.jpg","store7.jpg",
-      "store8.jpg","store9.jpg","store10.jpg","store11.jpg",
-      "store12.jpg"],
-      brand: "King",
-      model: "1120",
-      ser: "904730",
-      description: ["This is a King model 1120 Marching mellophone in ready to play condition. ",
-      "It has been ultrasonically cleaned and serviced ",
-      "for this auction by a professional repair technician. All slides and valves ",
-      "work freely and easily. There are dings, scratches and wear from normal usage. ",
-      "There is a case and a Holton 7C mouthpiece."],
-      shipping: "$35",
-    },
-    item2: {
-      type: "woodwind",
-      pics: ["s-l1600.jpg", "s-l1600 (1).jpg", "s-l1600 (2).jpg",
-      "s-l1600 (3).jpg", "s-l1600 (4).jpg", "s-l1600 (5).jpg",
-      "s-l1600 (6).jpg", "s-l1600 (7).jpg", "s-l1600 (8).jpg", "s-l1600 (9).jpg",
+const test1 = {
+  item1: {
+    type: "brass",
+    pics: ["store1.jpg", "store2.jpg","store3.jpg",
+    "store4.jpg","store5.jpg","store6.jpg","store7.jpg",
+    "store8.jpg","store9.jpg","store10.jpg","store11.jpg",
+    "store12.jpg"],
+    brand: "King",
+    model: "1120",
+    ser: "904730",
+    description: ["This is a King model 1120 Marching mellophone in ready to play condition. ",
+    "It has been ultrasonically cleaned and serviced ",
+    "for this auction by a professional repair technician. All slides and valves ",
+    "work freely and easily. There are dings, scratches and wear from normal usage. ",
+    "There is a case and a Holton 7C mouthpiece."],
+    shipping: "$35",
+  },
+  item2: {
+    type: "woodwind",
+    pics: ["s-l1600.jpg", "s-l1600 (1).jpg", "s-l1600 (2).jpg",
+    "s-l1600 (3).jpg", "s-l1600 (4).jpg", "s-l1600 (5).jpg",
+    "s-l1600 (6).jpg", "s-l1600 (7).jpg", "s-l1600 (8).jpg", "s-l1600 (9).jpg",
     "s-l1600 (10).jpg", "s-l1600 (11).jpg"],
     brand: "Selmer",
     model: "1430P",
     ser: "61011",
     description: ["This is a used Selmer bass clarinet in good playing condition. ",
-  "There are dings and wear from normal usage throughout. ",
-"This instrument has been serviced by a professional repair technician. ",
-"The pads appear to be original. The tenon cork is in good condition. ",
-"It has been play tested and is ready to go on arrival. There is a case and no mouthpiece."],
-shipping: "$40",
-},
-  }
+    "There are dings and wear from normal usage throughout. ",
+    "This instrument has been serviced by a professional repair technician. ",
+    "The pads appear to be original. The tenon cork is in good condition. ",
+    "It has been play tested and is ready to go on arrival. There is a case and no mouthpiece."],
+    shipping: "$40",
+  },
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+
+
   function createSpots(obj){
     let picArea = document.getElementById("pics");
     for (let item in obj){
       let area = document.createElement("div");
       area.setAttribute("class", "area");
+      let p = document.createElement("p");
+      p.innerHTML = "Click to expand";
+      p.setAttribute("class", "p");
+      area.appendChild(p);
       let focusPic = document.createElement("div");
       focusPic.setAttribute("class", "focusPicArea")
       area.appendChild(focusPic);
@@ -72,7 +78,6 @@ shipping: "$40",
         pic.setAttribute("height", "40");
         pic.setAttribute("class", "pic");
         pic.picNum = i;
-        // console.log(pic.picNum);
         area.appendChild(pic);
       }
       for (let i = 0; i < obj[item].pics.length; i++){
@@ -134,61 +139,50 @@ shipping: "$40",
   }
   createSpots(test1);
   function changePic(event){
-    // console.log(event.target.picNum);
-    let picture = event.target.parentNode.childNodes[0];
+    let picture = event.target.parentNode.childNodes[1];
     picture.removeChild(picture.childNodes[0]);
     let newPic = document.createElement("img");
     newPic.setAttribute("src", event.target.src);
     newPic.setAttribute("class", "focusPic");
     newPic.picNum = event.target.picNum;
-    // console.log(newPic.picNum);
-    newPic.addEventListener('click', openModal, false);
+    newPic.addEventListener('click', openModal);
     newPic.addEventListener("click", currentSlide);
     picture.appendChild(newPic);
   }
   let picClass = document.getElementsByClassName("pic");
   for (let i = 0; i < picClass.length; i++) {
-    picClass[i].addEventListener('click', changePic, false);
+    picClass[i].addEventListener('click', changePic);
   }
 
-function setSlideIndex(event){
-  slideIndex = event.target.picNum;
-  showSlides(slideIndex, event);
-}
-
-var currentDisplay;
+  var slideIndex = 1;
+  function setSlideIndex(event){
+    slideIndex = event.target.picNum;
+    showSlides(slideIndex, event);
+  }
+  var currentDisplay;
   function openModal(event) {
-    // console.log(event.target.parentNode.parentNode.childNodes[1])
-event.target.parentNode.parentNode.childNodes[1].style.display = "block";
-currentDisplay = event.target.parentNode.parentNode.childNodes[1];
+    event.target.parentNode.parentNode.childNodes[2].style.display = "block";
+    currentDisplay = event.target.parentNode.parentNode.childNodes[2];
   }
 
-  // Close the Modal
   function closeModal() {
-      currentDisplay.style.display = "none";
+    currentDisplay.style.display = "none";
   }
 
-  // showSlides(slideIndex, );
-
-  // Next/previous controls
   function plusSlides(event) {
     let n = event.target.value;
     showSlides(slideIndex += n, event);
   }
 
-  // Thumbnail image controls
   function currentSlide(event) {
     slideIndex = event.target.picNum;
-    // console.log(event.target.picNum);
     showSlides(event.target.picNum, event);
   }
 
   function showSlides(n, event) {
-    var i;
-    console.log(event.target.parentNode.parentNode)
-    //get slides to be the pictures in the area that was clicked.
-    var slides = document.getElementsByClassName("mySlides");
-    var dots = document.getElementsByClassName("demo");
+    var i, slides;
+    slides = event.target.parentNode.parentNode.getElementsByClassName("mySlides");
+    var dots = event.target.parentNode.parentNode.getElementsByClassName("demo");
     if (n > slides.length - 1) {slideIndex = 0}
     if (n < 0) {slideIndex = slides.length - 1}
     for (i = 0; i < slides.length; i++) {
@@ -197,27 +191,14 @@ currentDisplay = event.target.parentNode.parentNode.childNodes[1];
     for (i = 0; i < dots.length; i++) {
       dots[i].className = dots[i].className.replace(" active", "");
     }
-    // console.log(slides)
     slides[slideIndex].style.display = "block";
     slides[slideIndex].childNodes[0].className = "display"
     dots[slideIndex].className += " active";
   }
 
   let focusPicClass = document.getElementsByClassName("focusPic");
-  console.log(focusPicClass);
   for (let i = 0; i < focusPicClass.length; i++) {
     focusPicClass[i].addEventListener('click', openModal);
     focusPicClass[i].addEventListener("click", currentSlide);
-    };
-  });
-  // Why not just get the arguments from the target attribute of the event?
-  //
-  // Example:
-  //
-  // var someInput = document.querySelector('input');
-  // someInput.addEventListener('click', myFunc, false);
-  // someInput.myParam = 'This is my parameter';
-  // function myFunc(evt)
-  // {
-  //   window.alert( evt.target.myParam );
-  // }
+  };
+});
