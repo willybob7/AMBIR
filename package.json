@@ -1,0 +1,23 @@
+{
+  "name": "ambir",
+  "version": "1.0.0",
+  "description": "spencers site",
+  "main": "index.html",
+  "scripts": {
+    "test": "stuff"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/willybob7/AMBIR-site.git"
+  },
+  "author": "ben bruemmer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/willybob7/AMBIR-site/issues"
+  },
+  "homepage": "https://github.com/willybob7/AMBIR-site#readme",
+  "devDependencies": {
+    "eslint": "^5.6.1",
+    "eslint-config-google": "^0.10.0"
+  }
+}

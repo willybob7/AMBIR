@@ -1,51 +1,32 @@
-//change demo class so that they are all in column class and evenly spaced and centered when zoomed in
 
-const test1 = {
-  item1: {
-    type: "brass",
-    pics: ["store1.jpg", "store2.jpg","store3.jpg",
-    "store4.jpg","store5.jpg","store6.jpg","store7.jpg",
-    "store8.jpg","store9.jpg","store10.jpg","store11.jpg",
-    "store12.jpg"],
-    brand: "King",
-    model: "1120",
-    ser: "904730",
-    description: ["This is a King model 1120 Marching mellophone in ready to play condition. ",
-    "It has been ultrasonically cleaned and serviced ",
-    "for this auction by a professional repair technician. All slides and valves ",
-    "work freely and easily. There are dings, scratches and wear from normal usage. ",
-    "There is a case and a Holton 7C mouthpiece."],
-    shipping: "$35",
-  },
-  item2: {
-    type: "woodwind",
-    pics: ["s-l1600.jpg", "s-l1600 (1).jpg", "s-l1600 (2).jpg",
-    "s-l1600 (3).jpg", "s-l1600 (4).jpg", "s-l1600 (5).jpg",
-    "s-l1600 (6).jpg", "s-l1600 (7).jpg", "s-l1600 (8).jpg", "s-l1600 (9).jpg",
-    "s-l1600 (10).jpg", "s-l1600 (11).jpg"],
-    brand: "Selmer",
-    model: "1430P",
-    ser: "61011",
-    description: ["This is a used Selmer bass clarinet in good playing condition. ",
-    "There are dings and wear from normal usage throughout. ",
-    "This instrument has been serviced by a professional repair technician. ",
-    "The pads appear to be original. The tenon cork is in good condition. ",
-    "It has been play tested and is ready to go on arrival. There is a case and no mouthpiece."],
-    shipping: "$40",
-  },
-}
+var test1; 
+      var config = {
+        databaseURL: "https://spencer-s-site.firebaseio.com",
+        storageBucket: "spencer-s-site.appspot.com",
+        messagingSenderId: "614107400154"
+      };
+      firebase.initializeApp(config);
+      
+      firebase.database().ref("items").on("value", gotData, errData);
+      function gotData(data){
+        test1 = data.val()
+        createSpots(test1);
+        changePicListener();
+        focusPicListener();
+      }
+      function errData(err){
+        console.log(err);
+      }
+      
 
-document.addEventListener("DOMContentLoaded", function() {
-
-
-  function createSpots(obj){
-    let picArea = document.getElementById("pics");
-    for (let item in obj){
-      let area = document.createElement("div");
-      area.setAttribute("class", "area");
-      let p = document.createElement("p");
-      p.innerHTML = "Click to expand";
-      p.setAttribute("class", "p");
+      function createSpots(obj){
+        let picArea = document.getElementById("pics");
+        for (let item in obj){
+          let area = document.createElement("div");
+          area.setAttribute("class", "area");
+          let p = document.createElement("p");
+          p.innerHTML = "Click to expand";
+          p.setAttribute("class", "p");
       area.appendChild(p);
       let focusPic = document.createElement("div");
       focusPic.setAttribute("class", "focusPicArea")
@@ -61,7 +42,6 @@ document.addEventListener("DOMContentLoaded", function() {
           focusPic.appendChild(pic);
           let lightbox = document.createElement("div");
           lightbox.setAttribute("class", "modal");
-          // lightbox.setAttribute("id", "myModal");
           let close = document.createElement("span");
           close.setAttribute("class", "close cursor");
           close.addEventListener("click", closeModal);
@@ -100,9 +80,12 @@ document.addEventListener("DOMContentLoaded", function() {
       next.innerHTML = "&#10095;";
       next.value = 1;
       lightboxContent.appendChild(next);
+      var thumbPlace;
       for (let i = 0; i < obj[item].pics.length; i++){
-        let thumbPlace = document.createElement("div");
-        thumbPlace.setAttribute("class", "column");
+        if (i === 0){
+          thumbPlace = document.createElement("div");
+          thumbPlace.setAttribute("class", "column");
+        }
         let thumbNail = document.createElement("img");
         thumbNail.setAttribute("class", "demo");
         thumbNail.setAttribute("src", "pictures/" + obj[item].pics[i]);
@@ -110,9 +93,9 @@ document.addEventListener("DOMContentLoaded", function() {
         thumbNail.addEventListener("click", setSlideIndex);
         thumbNail.setAttribute("alt", "stuff");
         thumbPlace.appendChild(thumbNail);
-        lightboxContent.appendChild(thumbPlace);
       }
-
+      lightboxContent.appendChild(thumbPlace);
+      
       let Brand = document.createElement("p");
       let BrandName = document.createTextNode("Brand: " + obj[item].brand);
       Brand.appendChild(BrandName);
@@ -134,10 +117,23 @@ document.addEventListener("DOMContentLoaded", function() {
       let words = document.createTextNode(wordsVar);
       description.appendChild(words);
       area.appendChild(description);
+      
+      let buyButton = obj[item].buyButton;
+      let buyHtml = "";
+      let button;
+      if (buyButton != undefined){
+        for (let i = 0; i < buyButton.length; i++){
+          buyHtml += buyButton[i];
+        }
+        console.log(buyHtml);
+        button = document.createElement("div");
+        button.innerHTML = buyHtml;
+        area.appendChild(button);
+      }
+      // area.appendChild(buyHtml);
       picArea.appendChild(area);
     }
   }
-  createSpots(test1);
   function changePic(event){
     let picture = event.target.parentNode.childNodes[1];
     picture.removeChild(picture.childNodes[0]);
@@ -149,9 +145,11 @@ document.addEventListener("DOMContentLoaded", function() {
     newPic.addEventListener("click", currentSlide);
     picture.appendChild(newPic);
   }
-  let picClass = document.getElementsByClassName("pic");
-  for (let i = 0; i < picClass.length; i++) {
-    picClass[i].addEventListener('click', changePic);
+  function changePicListener (){
+    let picClass = document.getElementsByClassName("pic");
+    for (let i = 0; i < picClass.length; i++) {
+      picClass[i].addEventListener('click', changePic);
+    }
   }
 
   var slideIndex = 1;
@@ -195,10 +193,10 @@ document.addEventListener("DOMContentLoaded", function() {
     slides[slideIndex].childNodes[0].className = "display"
     dots[slideIndex].className += " active";
   }
-
-  let focusPicClass = document.getElementsByClassName("focusPic");
-  for (let i = 0; i < focusPicClass.length; i++) {
+  function focusPicListener(){
+    let focusPicClass = document.getElementsByClassName("focusPic");
+    for (let i = 0; i < focusPicClass.length; i++) {
     focusPicClass[i].addEventListener('click', openModal);
     focusPicClass[i].addEventListener("click", currentSlide);
-  };
-});
+    }
+  }

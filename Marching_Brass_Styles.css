@@ -155,7 +155,6 @@ h1 a:hover::before {
   border: black 2px solid;
   border-radius: 10px;
   margin-left: 2%;
-  width: 40%;
 }
 .focusPic {
   height: 200px;
@@ -165,6 +164,7 @@ h1 a:hover::before {
   border: white 2px solid;
   border-radius: 5px;
   cursor: pointer;
+  max-width: 100%;
 }
 .area p {
   color: white;
@@ -218,10 +218,13 @@ display: none;
 }
 
 .column {
-  float: left;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* float: left;
   width: 5%;
   display: block;
-  margin: 0 auto;
+  margin: 0 auto; */
 }
 
 /* The Modal (background) */
@@ -281,7 +284,7 @@ display: none;
 .prev,
 .next {
   cursor: pointer;
-  position: absolute;
+  position: fixed;
   top: 50%;
   width: auto;
   padding: 16px;
@@ -293,6 +296,9 @@ display: none;
   border-radius: 0 3px 3px 0;
   user-select: none;
   -webkit-user-select: none;
+}
+.prev {
+  left: 0;
 }
 
 /* Position the "next button" to the right */
@@ -327,7 +333,7 @@ display: none;
 .demo {
   opacity: 0.6;
   height: 40px;
-  display: block;
+  /* display: block; */
   margin: 3px auto;
   border: solid white 2px;
   border-radius: 5px;
