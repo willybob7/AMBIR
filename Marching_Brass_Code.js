@@ -1,22 +1,65 @@
+const items = {
 
-var test1; 
-      var config = {
-        databaseURL: "https://spencer-s-site.firebaseio.com",
-        storageBucket: "spencer-s-site.appspot.com",
-        messagingSenderId: "614107400154"
-      };
-      firebase.initializeApp(config);
+  item1: {
+    type: "brass",
+    pics: ["store1.jpg", "store2.jpg", "store3.jpg",
+      "store4.jpg", "store5.jpg", "store6.jpg", "store7.jpg",
+      "store8.jpg", "store9.jpg", "store10.jpg", "store11.jpg",
+      "store12.jpg"],
+    brand: "King",
+    model: "1120",
+    ser: "904730",
+    description: ["This is a King model 1120 Marching mellophone in ready to play condition. ",
+      "It has been ultrasonically cleaned and serviced ",
+      "for this auction by a professional repair technician. All slides and valves ",
+      "work freely and easily. There are dings, scratches and wear from normal usage. ",
+      "There is a case and a Holton 7C mouthpiece."],
+    "shipping": "$35",
+    buyButton: ["<form target=\"paypal\" action=\"https:\/\/www.paypal.com/cgi-bin/webscr\" method=\"post\">",
+      "<input type=\"hidden\" name=\"cmd\" value=\"_s-xclick\">",
+      "<input type=\"hidden\" name=\"hosted_button_id\" value=\"ZYALZXG7TJ64S\">",
+      "<input type=\"image\" src=\"https:\/\/www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif\" border=\"0\" name=\"submit\" alt=\"PayPal - The safer, easier way to pay online!\">",
+      "<img alt=\"\" border=\"0\" src=\"https:\/\/www.paypalobjects.com/en_US/i/scr/pixel.gif\" width=\"1\" height=\"1\">",
+      "<\/form>"]
+  },
+  item2: {
+    type: "woodwind",
+    pics: ["s-l1600.jpg", "s-l1600 (1).jpg", "s-l1600 (2).jpg",
+      "s-l1600 (3).jpg", "s-l1600 (4).jpg", "s-l1600 (5).jpg",
+      "s-l1600 (6).jpg", "s-l1600 (7).jpg", "s-l1600 (8).jpg", "s-l1600 (9).jpg",
+      "s-l1600 (10).jpg", "s-l1600 (11).jpg"],
+    brand: "Selmer",
+    model: "1430P",
+    ser: "61011",
+    description: ["This is a used Selmer bass clarinet in good playing condition. ",
+      "There are dings and wear from normal usage throughout. ",
+      "This instrument has been serviced by a professional repair technician. ",
+      "The pads appear to be original. The tenon cork is in good condition. ",
+      "It has been play tested and is ready to go on arrival. There is a case and no mouthpiece."],
+    "shipping": "$40"
+  }
+}
+
+
+
+// var test1; 
+      // var config = {
+      //   databaseURL: "https://spencer-s-site.firebaseio.com",
+      //   storageBucket: "spencer-s-site.appspot.com",
+      //   messagingSenderId: "614107400154"
+      // };
+      // firebase.initializeApp(config);
       
-      firebase.database().ref("items").on("value", gotData, errData);
-      function gotData(data){
-        test1 = data.val()
-        createSpots(test1);
-        changePicListener();
-        focusPicListener();
-      }
-      function errData(err){
-        console.log(err);
-      }
+      // firebase.database().ref("items").on("value", gotData, errData);
+      // function gotData(data){
+      //   test1 = data.val()
+      //   createSpots(test1);
+      //   changePicListener();
+      //   focusPicListener();
+      // }
+      // function errData(err){
+      //   console.log(err);
+      // }
       
 
       function createSpots(obj){
@@ -200,3 +243,7 @@ var test1;
     focusPicClass[i].addEventListener("click", currentSlide);
     }
   }
+
+createSpots(items);
+changePicListener();
+focusPicListener();
