@@ -42,14 +42,14 @@ const items = {
 
 
 
-// var test1; 
+// var test1;
       // var config = {
       //   databaseURL: "https://spencer-s-site.firebaseio.com",
       //   storageBucket: "spencer-s-site.appspot.com",
       //   messagingSenderId: "614107400154"
       // };
       // firebase.initializeApp(config);
-      
+
       // firebase.database().ref("items").on("value", gotData, errData);
       // function gotData(data){
       //   test1 = data.val()
@@ -60,7 +60,7 @@ const items = {
       // function errData(err){
       //   console.log(err);
       // }
-      
+
 
       function createSpots(obj){
         let picArea = document.getElementById("pics");
@@ -133,12 +133,12 @@ const items = {
         thumbNail.setAttribute("class", "demo");
         thumbNail.setAttribute("src", "pictures/" + obj[item].pics[i]);
         thumbNail.picNum = i;
-        thumbNail.addEventListener("click", setSlideIndex);
+        thumbNail.addEventListener("mouseenter", setSlideIndex);
         thumbNail.setAttribute("alt", "stuff");
         thumbPlace.appendChild(thumbNail);
       }
       lightboxContent.appendChild(thumbPlace);
-      
+
       let Brand = document.createElement("p");
       let BrandName = document.createTextNode("Brand: " + obj[item].brand);
       Brand.appendChild(BrandName);
@@ -160,7 +160,7 @@ const items = {
       let words = document.createTextNode(wordsVar);
       description.appendChild(words);
       area.appendChild(description);
-      
+
       let buyButton = obj[item].buyButton;
       let buyHtml = "";
       let button;
@@ -185,13 +185,13 @@ const items = {
     newPic.setAttribute("class", "focusPic");
     newPic.picNum = event.target.picNum;
     newPic.addEventListener('click', openModal);
-    newPic.addEventListener("click", currentSlide);
+    newPic.addEventListener("mouseenter", currentSlide);
     picture.appendChild(newPic);
   }
   function changePicListener (){
     let picClass = document.getElementsByClassName("pic");
     for (let i = 0; i < picClass.length; i++) {
-      picClass[i].addEventListener('click', changePic);
+      picClass[i].addEventListener('mouseenter', changePic);
     }
   }
 

@@ -221,10 +221,17 @@ display: none;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  /* float: left;
-  width: 5%;
-  display: block;
-  margin: 0 auto; */
+  position: fixed;
+  bottom: 0;
+  width: 50%;
+  left: 25%;
+
+}
+@media screen and (max-width: 650px) {
+  .column {
+    width: 75%;
+    left: 15%;
+  }
 }
 
 /* The Modal (background) */
