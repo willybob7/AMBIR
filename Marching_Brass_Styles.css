@@ -151,7 +151,7 @@ h1 a:hover::before {
   background: var(--background);
   width: 300px;
   position: relative;
-  margin-top: 20px;
+  margin-top: 40px;
   border: black 2px solid;
   border-radius: 10px;
   margin-left: 2%;

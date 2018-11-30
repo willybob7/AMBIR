@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="Marching_Brass_Styles.css">
   <title>AMBIR</title>
 </head>
-<!-- <body onresize ="picHeight()"> -->
+<body>
 <header>
   <div class="container">
     <h1><a class="logo" href="Index.html">A M B I R</a></h1>
@@ -44,8 +44,8 @@
                     <li><a href="#">About</a></li>
                     <li class="dropdown" id="sale"><a href="#">For Sale</a>
                       <div class="dropdown-content">
-                        <ul>
-                          <li><a href="Marching_Brass.html">Marching Brass</a></li>
+                        <ul id="sectionPages">
+                          <li><a href="#">Marching Brass</a></li>
                           <li><a href="#">Concert Brass</a></li>
                           <li><a href="#">Woodwinds</a></li>
                           <li><a href="#">Percussion</a></li>
@@ -57,6 +57,17 @@
                     <li><a href="#">Contact</a></li>
                   </ul>
                 </nav>
+                <form id="sectionSelector">
+                  <select name="sections">
+                    <option value="Marching Brass">Marching Brass</option>
+                    <option value="Concert Brass">Concert Brass</option>
+                    <option value="Woodwinds">Woodwinds</option>
+                    <option value="Percussion">Percussion</option>
+                    <option value="Mouthpieces">Mouthpieces</option>
+                  </select>
+                  <input type="submit" value="Go">
+                </form>
+
           </header>
           <div id="pics"></div>
 
@@ -78,6 +89,7 @@ crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
 integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
 crossorigin="anonymous"></script> -->
-<script src="Marching_Brass_Code.js" charset="utf-8"></script>
+<!-- <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase.js"></script> -->
+<script src="sales.js" charset="utf-8"></script>
 </body>
 </html>
