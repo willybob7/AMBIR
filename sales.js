@@ -1,7 +1,7 @@
 const items = {
 
   item1: {
-    type: "brass",
+    type: "Marching Brass",
     pics: ["store1.jpg", "store2.jpg", "store3.jpg",
       "store4.jpg", "store5.jpg", "store6.jpg", "store7.jpg",
       "store8.jpg", "store9.jpg", "store10.jpg", "store11.jpg",
@@ -23,7 +23,7 @@ const items = {
       "<\/form>"]
   },
   item2: {
-    type: "woodwind",
+    type: "Woodwinds",
     pics: ["s-l1600.jpg", "s-l1600 (1).jpg", "s-l1600 (2).jpg",
       "s-l1600 (3).jpg", "s-l1600 (4).jpg", "s-l1600 (5).jpg",
       "s-l1600 (6).jpg", "s-l1600 (7).jpg", "s-l1600 (8).jpg", "s-l1600 (9).jpg",
@@ -39,21 +39,38 @@ const items = {
     "shipping": "$40"
   }
 }
-//use local storage to store a variable and use it to filter the results. 
+//use local storage to store a variable and use it to filter the results.
 function sectionListeners(event){
   let list = document.getElementById('sectionPages').getElementsByTagName('LI');
   let len = list.length;
-  let text
-  let i = 1;
+  let i = 0;
   while (i < len){
-
+    list[i].addEventListener("click", sectionParameters)
     i++;
   }
-  console.log(list);
-  let value = event
 }
+function sectionOptionListeners(){
+
+}
+
 sectionListeners();
-// var test1;
+
+function sectionParameters(event){
+  let param = event.target.textContent;
+  let obj = Object.assign({}, items);
+  for (item in obj) {
+
+    if (obj[item].type != param) {
+    delete obj[item];
+    }
+  }
+  createSpots(obj);
+  changePicListener();
+  focusPicListener();
+}
+dropdownForm = document.getElementById("sectionSelector").addEventListener("submit", function(event){
+event.preventDefault();
+})
       // var config = {
       //   databaseURL: "https://spencer-s-site.firebaseio.com",
       //   storageBucket: "spencer-s-site.appspot.com",
@@ -75,6 +92,7 @@ sectionListeners();
 
       function createSpots(obj){
         let picArea = document.getElementById("pics");
+        picArea.innerHTML = "";
         for (let item in obj){
           let area = document.createElement("div");
           area.setAttribute("class", "area");
