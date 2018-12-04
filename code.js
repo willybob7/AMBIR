@@ -50,3 +50,6 @@ function saveParam(event){
     sessionStorage.param = event.target.textContent;
   }
 }
+let clearStorage = document.getElementById("sale").addEventListener("click", function(){
+    sessionStorage.clear();
+  })
