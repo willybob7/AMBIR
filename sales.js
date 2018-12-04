@@ -39,7 +39,7 @@ const items = {
     "shipping": "$40"
   }
 }
-//use local storage to store a variable and use it to filter the results.
+
 function sectionListeners(event){
   let list = document.getElementById('sectionPages').getElementsByTagName('LI');
   let len = list.length;
@@ -49,17 +49,12 @@ function sectionListeners(event){
     i++;
   }
 }
-function sectionOptionListeners(){
-
-}
-
 sectionListeners();
 
 function sectionParameters(event){
   let param = event.target.textContent;
   let obj = Object.assign({}, items);
   for (item in obj) {
-
     if (obj[item].type != param) {
     delete obj[item];
     }
@@ -68,8 +63,19 @@ function sectionParameters(event){
   changePicListener();
   focusPicListener();
 }
-dropdownForm = document.getElementById("sectionSelector").addEventListener("submit", function(event){
-event.preventDefault();
+dropdownForm = document.getElementById("sectionSelector").addEventListener("change", function(){
+  let param = document.getElementById("sectionSelector").value;
+  let obj = Object.assign({}, items);
+  if (param != "All Sales"){
+    for (item in obj) {
+      if (obj[item].type != param) {
+      delete obj[item];
+      }
+    }
+  }
+  createSpots(obj);
+  changePicListener();
+  focusPicListener();
 })
       // var config = {
       //   databaseURL: "https://spencer-s-site.firebaseio.com",
@@ -201,7 +207,6 @@ event.preventDefault();
         button.innerHTML = buyHtml;
         area.appendChild(button);
       }
-      // area.appendChild(buyHtml);
       picArea.appendChild(area);
     }
   }
@@ -271,7 +276,25 @@ event.preventDefault();
     focusPicClass[i].addEventListener("click", currentSlide);
     }
   }
-
-createSpots(items);
-changePicListener();
-focusPicListener();
+(function(){
+  let obj = Object.assign({}, items);
+  if (sessionStorage.param){
+    console.log(sessionStorage.param);
+    let param = sessionStorage.param;
+    if (param != "All Sales"){
+    for (item in obj) {
+      if (obj[item].type != param) {
+      delete obj[item];
+      }
+    }
+  }
+    createSpots(obj);
+    changePicListener();
+    focusPicListener();
+  }
+  else {
+    createSpots(items);
+    changePicListener();
+    focusPicListener();
+  }
+})();

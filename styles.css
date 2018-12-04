@@ -147,7 +147,7 @@ h1 a:hover::before {
 .slideshow-container {
   width: 80%;
   position: relative;
-  margin: 500px auto 0 auto;
+  margin: 155px auto 0 auto;
   height: 500px;
   background-color: rgba(191, 191, 191, 0.5);
   border: 2px solid hsl(0, 0%, 20%);

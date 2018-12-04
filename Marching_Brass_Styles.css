@@ -188,7 +188,7 @@ h1 a:hover::before {
   }
 
 }
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 474px) {
   .logo {
     margin: 0px auto;
   }
@@ -204,6 +204,9 @@ h1 a:hover::before {
   }
   .policy-dropdown-content {
 display: none;
+    }
+    #pics{
+      margin-top: 140px;
     }
 }
 

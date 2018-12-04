@@ -32,3 +32,21 @@ function picHeight() {
     var width = activePic.offsetHeight;
     console.log(width);
 }
+
+
+function sectionListeners(event){
+  let list = document.getElementById('dropdown').getElementsByTagName('LI');
+  let len = list.length;
+  let i = 0;
+  while (i < len){
+    list[i].addEventListener("click", saveParam)
+    i++;
+  }
+}
+sectionListeners();
+
+function saveParam(event){
+  if(typeof(Storage) !== "undefined") {
+    sessionStorage.param = event.target.textContent;
+  }
+}
